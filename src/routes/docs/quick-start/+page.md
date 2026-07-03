@@ -69,4 +69,12 @@ See a cross-language overview of what's pinned and installed:
 linguo status
 ```
 
+## Sync a monorepo
+
+In a monorepo, run `linguo sync` at the root to install pinned toolchains and sync every member project:
+
+```bash
+linguo sync
+```
+
 Next: read the full [usage guide](/docs/usage) and learn about [version pins](/docs/version-pins).

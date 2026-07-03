@@ -2,9 +2,13 @@
 	import { DEFAULT_DESCRIPTION } from '$lib/site';
 
 	const languages = [
-		{ name: 'Python', runtime: 'python-build-standalone', project: 'pyproject.toml + pip' },
+		{ name: 'Python', runtime: 'python-build-standalone', project: 'pyproject.toml + pip-backed .venv' },
 		{ name: 'Node.js', runtime: 'nodejs.org/dist', project: 'package.json via npm' },
-		{ name: 'Ruby', runtime: 'rv-ruby relocatable builds', project: 'Gemfile via bundler' },
+		{
+			name: 'Ruby',
+			runtime: 'rv-ruby; RubyInstaller on Windows',
+			project: 'Gemfile via bundler'
+		},
 		{ name: 'Rust', runtime: 'static.rust-lang.org', project: 'Cargo.toml via cargo' },
 		{ name: 'Go', runtime: 'go.dev/dl', project: 'go.mod via go tool' },
 		{
@@ -73,14 +77,14 @@
 			<h2>Verified downloads</h2>
 			<p>
 				Every toolchain download is sha256-verified against upstream checksums. Toolchains live under
-				<code>~/.linguo/toolchains</code>.
+				<code>~/.linguo/toolchains/&lt;language&gt;/&lt;version&gt;</code>.
 			</p>
 		</article>
 		<article>
 			<h2>Project-aware</h2>
 			<p>
-				Pins live in <code>linguo.toml</code> and activate automatically via shell hooks. Existing
-				ecosystem pin files are honored too.
+				Pins live in <code>linguo.toml</code> and activate automatically via shell hooks. Run
+				<code>linguo sync</code> at the monorepo root to set up every member project at once.
 			</p>
 		</article>
 	</div>
@@ -115,9 +119,10 @@
 <section class="install-cta">
 	<div class="container">
 		<h2>Install in seconds</h2>
-		<pre><code>brew tap boxingoctopuscreative/tap && brew install linguo</code></pre>
+		<pre><code>curl -fsSL https://raw.githubusercontent.com/BoxingOctopusCreative/linguo/main/install.sh | sh</code></pre>
 		<p>
-			Prebuilt binaries for macOS, Linux, and Windows are on the
+			Or use Homebrew (<code>brew tap boxingoctopuscreative/tap && brew install linguo</code>).
+			Prebuilt binaries for macOS, Linux (glibc and musl), and Windows are on the
 			<a href="https://github.com/BoxingOctopusCreative/linguo/releases">releases page</a>.
 		</p>
 	</div>

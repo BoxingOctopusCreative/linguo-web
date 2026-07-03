@@ -21,7 +21,7 @@ export const docGroups: DocGroup[] = [
 			{
 				title: 'Installation',
 				slug: 'install',
-				description: 'Install Linguo on macOS, Linux, and Windows'
+				description: 'Install Linguo via Homebrew, curl script, or native packages'
 			},
 			{
 				title: 'Quick start',

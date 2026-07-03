@@ -1,6 +1,6 @@
 # Introduction
 
-Linguo is a cross-platform, multi-language runtime, package, and project manager. Think [uv](https://docs.astral.sh/uv/), but for **Python, Node.js, Ruby, Rust, Go, and Terraform/OpenTofu**.
+Linguo is a cross-platform, multi-language runtime, package, and project manager. Think [`uv`](https://github.com/astral-sh/uv), but for **Python, Node.js, Ruby, Rust, Go, and Terraform/OpenTofu**.
 
 One binary manages runtime versions, per-project pins, and project workflows for every language, with the same command shape everywhere:
 
@@ -18,6 +18,7 @@ Linguo unifies that experience:
 - **Verified downloads:** every toolchain is sha256-checked against upstream checksums
 - **Automatic activation:** shell hooks activate pinned runtimes when you `cd` into a project
 - **Native project tools:** Linguo drives pip, npm, bundler, cargo, and go rather than reimplementing them
+- **Monorepo sync:** `linguo sync` at the repo root installs pinned toolchains and syncs every member project in one shot
 
 ## What's next?
 

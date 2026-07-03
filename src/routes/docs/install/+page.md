@@ -1,16 +1,37 @@
 # Installation
 
-Prebuilt binaries for macOS (arm64/x86_64), Linux (x64/arm64), and Windows (x64) are on the [releases page](https://github.com/BoxingOctopusCreative/linguo/releases). Ruby is not yet available on Windows (no upstream relocatable builds).
+Prebuilt binaries for macOS (arm64/x86_64), Linux (x64/arm64, glibc and fully static musl), and Windows (x64) are on the [releases page](https://github.com/BoxingOctopusCreative/linguo/releases).
 
-## macOS
+On musl systems (Alpine and friends), Python, Ruby, Rust, and Terraform/OpenTofu work natively. Node.js and Go publish no official musl builds, so Linguo points you at the distro package instead. On Windows, Ruby comes from [RubyInstaller](https://rubyinstaller.org) archives (without the MSYS2 devkit, so gems with C extensions need a separate toolchain).
 
-### Homebrew
+## Quick install
+
+Four ways in, pick one:
 
 ```bash
+# Homebrew (macOS/Linux)
 brew tap boxingoctopuscreative/tap && brew install linguo
+
+# curl install script (macOS/Linux, glibc or musl)
+curl -fsSL https://raw.githubusercontent.com/BoxingOctopusCreative/linguo/main/install.sh | sh
+
+# native packages: deb, rpm, and a Windows MSI on the releases page
+
+# from source
+cargo install --path .
 ```
 
 The tap's formula is updated automatically by the release pipeline.
+
+## curl install script
+
+The install script detects your platform, downloads the latest release tarball, verifies its checksum, and installs the binary to `~/.local/bin`.
+
+Override the destination with `LINGUO_INSTALL_DIR`, or pin a version with `LINGUO_VERSION=0.9.0` (or `sh install.sh 0.9.0`).
+
+In CI or anywhere GitHub API rate limits bite, set `GITHUB_TOKEN` (or `LINGUO_GITHUB_TOKEN`). Linguo and the install script authenticate their `api.github.com` queries with it, and never send it anywhere else.
+
+## macOS
 
 ### Release tarball (Intel or Apple silicon)
 
@@ -26,19 +47,11 @@ sudo install -m 755 linguo /usr/local/bin/linguo
 
 ## Linux
 
-### Homebrew (Linux)
-
-Homebrew also works on Linux:
-
-```bash
-brew tap boxingoctopuscreative/tap && brew install linguo
-```
-
 ### Debian / Ubuntu (.deb)
 
 1. Download the `.deb` for your architecture from [GitHub Releases](https://github.com/BoxingOctopusCreative/linguo/releases):
-   - x64: `linguo-<version>-x86_64-unknown-linux-gnu.deb`
-   - arm64: `linguo-<version>-aarch64-unknown-linux-gnu.deb`
+   - x64 (glibc): `linguo-<version>-x86_64-unknown-linux-gnu.deb`
+   - arm64 (glibc): `linguo-<version>-aarch64-unknown-linux-gnu.deb`
 2. Install the package:
 
 ```bash
@@ -64,15 +77,17 @@ On Fedora, you can also use:
 sudo dnf install ./linguo-*-unknown-linux-gnu.rpm
 ```
 
-### Generic tarball
+### Generic tarball (glibc or musl)
 
 If your distro is not covered by the `.deb` or `.rpm` packages, use the tarball:
 
-1. Download `linguo-<version>-<arch>-unknown-linux-gnu.tar.gz` from [GitHub Releases](https://github.com/BoxingOctopusCreative/linguo/releases).
+1. Download the matching archive from [GitHub Releases](https://github.com/BoxingOctopusCreative/linguo/releases):
+   - glibc x64/arm64: `linguo-<version>-<arch>-unknown-linux-gnu.tar.gz`
+   - musl x64/arm64: `linguo-<version>-<arch>-unknown-linux-musl.tar.gz`
 2. Extract and install the binary:
 
 ```bash
-tar xzf linguo-*-unknown-linux-gnu.tar.gz
+tar xzf linguo-*-linux-*.tar.gz
 sudo install -m 755 linguo /usr/local/bin/linguo
 ```
 
@@ -102,8 +117,6 @@ linguo --version
 ```powershell
 linguo --version
 ```
-
-> **Note:** Ruby toolchain management is not yet supported on Windows.
 
 ## Build from source
 
