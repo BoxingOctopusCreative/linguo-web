@@ -11,6 +11,12 @@
 		},
 		{ name: 'Rust', runtime: 'static.rust-lang.org', project: 'Cargo.toml via cargo' },
 		{ name: 'Go', runtime: 'go.dev/dl', project: 'go.mod via go tool' },
+		{ name: 'Zig', runtime: 'ziglang.org (static, musl-friendly)', project: 'build.zig.zon via zig' },
+		{
+			name: 'PHP',
+			runtime: 'static-php-cli; windows.php.net on Windows',
+			project: 'composer.json via bundled Composer'
+		},
 		{
 			name: 'Terraform / OpenTofu',
 			runtime: 'HashiCorp / OpenTofu releases',
@@ -45,7 +51,7 @@
 			<h1>One command shape for every language runtime</h1>
 			<p class="lead">
 				Linguo is a cross-platform runtime, package, and project manager for Python, Node.js, Ruby,
-				Rust, Go, and Terraform/OpenTofu. Pin versions, install toolchains, and run project
+				PHP, Rust, Go, Zig, and Terraform/OpenTofu. Pin versions, install toolchains, and run project
 				workflows with the same CLI everywhere.
 			</p>
 			<div class="actions">
@@ -121,8 +127,8 @@
 		<h2>Install in seconds</h2>
 		<pre><code>curl -fsSL https://raw.githubusercontent.com/BoxingOctopusCreative/linguo/main/install.sh | sh</code></pre>
 		<p>
-			Or use Homebrew (<code>brew tap boxingoctopuscreative/tap && brew install linguo</code>).
-			Prebuilt binaries for macOS, Linux (glibc and musl), and Windows are on the
+			Or use Homebrew, <code>cargo install linguo</code>, or the Ubuntu PPA. Prebuilt binaries for
+			macOS, Linux (glibc and musl), and Windows are on the
 			<a href="https://github.com/BoxingOctopusCreative/linguo/releases">releases page</a>.
 		</p>
 	</div>

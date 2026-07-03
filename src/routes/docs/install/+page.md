@@ -4,9 +4,7 @@ Prebuilt binaries for macOS (arm64/x86_64), Linux (x64/arm64, glibc and fully st
 
 On musl systems (Alpine and friends), Python, Ruby, Rust, and Terraform/OpenTofu work natively. Node.js and Go publish no official musl builds, so Linguo points you at the distro package instead. On Windows, Ruby comes from [RubyInstaller](https://rubyinstaller.org) archives (without the MSYS2 devkit, so gems with C extensions need a separate toolchain).
 
-## Quick install
-
-Four ways in, pick one:
+## Pick your channel
 
 ```bash
 # Homebrew (macOS/Linux)
@@ -15,19 +13,28 @@ brew tap boxingoctopuscreative/tap && brew install linguo
 # curl install script (macOS/Linux, glibc or musl)
 curl -fsSL https://raw.githubusercontent.com/BoxingOctopusCreative/linguo/main/install.sh | sh
 
+# crates.io
+cargo install linguo
+
 # native packages: deb, rpm, and a Windows MSI on the releases page
 
-# from source
+# Ubuntu PPA (rolling out; live once the first PPA build publishes)
+sudo add-apt-repository ppa:boxingoctopuscreative/ppa && sudo apt install linguo
+
+# Chocolatey (rolling out; live once the first submission clears moderation)
+choco install linguo
+
+# from a checkout
 cargo install --path .
 ```
 
-The tap's formula is updated automatically by the release pipeline.
+Every channel is fed automatically by the release pipeline: the tap formula (also attached to each release as `linguo.rb`), [crates.io](https://crates.io/crates/linguo), the PPA (source packages that Launchpad builds for noble and resolute), and the Chocolatey package (which installs the release MSI).
 
 ## curl install script
 
 The install script detects your platform, downloads the latest release tarball, verifies its checksum, and installs the binary to `~/.local/bin`.
 
-Override the destination with `LINGUO_INSTALL_DIR`, or pin a version with `LINGUO_VERSION=0.9.0` (or `sh install.sh 0.9.0`).
+Override the destination with `LINGUO_INSTALL_DIR`, or pin a version with `LINGUO_VERSION=1.2.0` (or `sh install.sh 1.2.0`).
 
 In CI or anywhere GitHub API rate limits bite, set `GITHUB_TOKEN` (or `LINGUO_GITHUB_TOKEN`). Linguo and the install script authenticate their `api.github.com` queries with it, and never send it anywhere else.
 

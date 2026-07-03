@@ -34,6 +34,7 @@ linguo python init                # pyproject.toml + linguo.toml pin + .venv
 linguo python add "requests>=2.31"
 linguo node add typescript && linguo node run -- tsc --version
 linguo ruby add rails
+linguo php add monolog/monolog    # composer, bundled with every php toolchain
 linguo rust add serde && linguo rust run -- cargo build
 linguo go add rsc.io/quote
 linguo <lang> remove <pkg>
@@ -69,6 +70,17 @@ linguo rust component add rust-analyzer rust-src
 linguo rust target add wasm32-unknown-unknown
 ```
 
+## Zig projects
+
+Zig projects work the same way (`linguo zig init/sync/run/which`). `add` wraps `zig fetch --save`, which takes archive URLs or paths rather than registry names:
+
+```bash
+linguo zig init
+linguo zig add https://example.com/some-zig-lib.tar.gz
+linguo zig sync
+linguo zig run -- zig build
+```
+
 ## Supported languages
 
 | Language | Runtime source | Project layer |
@@ -78,4 +90,6 @@ linguo rust target add wasm32-unknown-unknown
 | Ruby | [rv-ruby](https://github.com/spinel-coop/rv-ruby) relocatable builds; [RubyInstaller](https://rubyinstaller.org) on Windows | Gemfile via bundler (shared per-toolchain gems) |
 | Rust | [static.rust-lang.org](https://static.rust-lang.org) dist channels | Cargo.toml via cargo |
 | Go | [go.dev/dl](https://go.dev/dl) | go.mod via the go tool |
+| Zig | [ziglang.org](https://ziglang.org/download) (static, musl-friendly) | build.zig.zon via the zig tool |
+| PHP | [static-php-cli](https://dl.static-php.dev) builds (static); [windows.php.net](https://windows.php.net) on Windows | composer.json via bundled Composer |
 | Terraform / OpenTofu | [releases.hashicorp.com](https://releases.hashicorp.com) / [get.opentofu.org](https://get.opentofu.org) | runtime-only (providers stay terraform's job) |

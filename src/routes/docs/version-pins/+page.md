@@ -27,6 +27,9 @@ When Linguo needs a runtime version, it checks in this order:
    - `.ruby-version`
    - `go.mod` `toolchain` / `go` directives
    - `rust-toolchain(.toml)`
+   - `.zigversion`
+   - `build.zig.zon` `minimum_zig_version`
+   - `.php-version`
 3. **Global config:** `~/.linguo/config.toml`
 
 Precedence: project `linguo.toml`, then the ecosystem pin file, then the global config.
