@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { DEFAULT_DESCRIPTION } from '$lib/site';
+
 	const languages = [
 		{ name: 'Python', runtime: 'python-build-standalone', project: 'pyproject.toml + pip' },
 		{ name: 'Node.js', runtime: 'nodejs.org/dist', project: 'package.json via npm' },
@@ -15,10 +17,11 @@
 
 <svelte:head>
 	<title>Linguo | Multi-language runtime manager</title>
-	<meta
-		name="description"
-		content="One binary to manage Python, Node.js, Ruby, Rust, Go, and Terraform/OpenTofu runtimes and project workflows."
-	/>
+	<meta name="description" content={DEFAULT_DESCRIPTION} />
+	<meta property="og:title" content="Linguo | Multi-language runtime manager" />
+	<meta property="og:description" content={DEFAULT_DESCRIPTION} />
+	<meta name="twitter:title" content="Linguo | Multi-language runtime manager" />
+	<meta name="twitter:description" content={DEFAULT_DESCRIPTION} />
 </svelte:head>
 
 <section class="hero">

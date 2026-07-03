@@ -13,6 +13,10 @@
 	{#if meta}
 		<title>{meta.title} | Linguo</title>
 		<meta name="description" content={meta.description} />
+		<meta property="og:title" content="{meta.title} | Linguo" />
+		<meta property="og:description" content={meta.description} />
+		<meta name="twitter:title" content="{meta.title} | Linguo" />
+		<meta name="twitter:description" content={meta.description} />
 	{/if}
 </svelte:head>
 
