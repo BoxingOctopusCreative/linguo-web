@@ -1,0 +1,46 @@
+# Version pins
+
+Pins live in `linguo.toml`, resolved from the nearest file up the directory tree, then the global config (`~/.linguo/config.toml`):
+
+```toml
+[runtimes]
+python = "3.12"
+node = "24"
+rust = "1.96"
+terraform = "opentofu@1.12"
+```
+
+## Pin formats
+
+Requests can be a major (`24`), minor (`3.12`), or exact (`1.96.1`) version. The highest installed match wins.
+
+## Resolution order
+
+When Linguo needs a runtime version, it checks in this order:
+
+1. **Project `linguo.toml`:** nearest file walking up the directory tree
+2. **Ecosystem pin file:** when no `linguo.toml` covers a language:
+   - `.python-version`
+   - `.nvmrc` / `.node-version`
+   - `.ruby-version`
+   - `go.mod` `toolchain` / `go` directives
+   - `rust-toolchain(.toml)`
+3. **Global config:** `~/.linguo/config.toml`
+
+Aliases like `lts/*` or `stable` in ecosystem pin files are ignored; only plain version numbers are honored.
+
+## Toolchain storage
+
+Every download is sha256-verified against its upstream's published checksums. Toolchains live under:
+
+```
+~/.linguo/toolchains/<language>/<version>
+```
+
+Override the root directory with the `$LINGUO_ROOT` environment variable.
+
+## Existing projects
+
+Existing projects work without a `linguo.toml`. When none covers a language, Linguo honors the ecosystem's own pin file as long as it holds a plain version number.
+
+To adopt Linguo explicitly, run `linguo <lang> use <version>` in your project directory. This writes a `linguo.toml` with your chosen pin.

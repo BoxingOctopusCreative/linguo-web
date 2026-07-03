@@ -1,0 +1,21 @@
+import { mdsvex } from 'mdsvex';
+import adapter from '@sveltejs/adapter-static';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	plugins: [
+		sveltekit({
+			compilerOptions: {
+				runes: ({ filename }) => {
+					if (filename.split(/[/\\]/).includes('node_modules')) return undefined;
+					if (/\.(md|svx)$/.test(filename)) return false;
+					return true;
+				}
+			},
+			adapter: adapter(),
+			preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
+			extensions: ['.svelte', '.svx', '.md']
+		})
+	]
+});
