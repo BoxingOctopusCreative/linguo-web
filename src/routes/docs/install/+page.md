@@ -4,7 +4,7 @@ Prebuilt binaries for macOS (arm64/x86_64), Linux (x64/arm64, glibc and fully st
 
 On musl systems (Alpine and friends), Python, Ruby, Rust, and Terraform/OpenTofu work natively. Node.js and Go publish no official musl builds, so Linguo points you at the distro package instead. On Windows, Ruby comes from [RubyInstaller](https://rubyinstaller.org) archives (without the MSYS2 devkit, so gems with C extensions need a separate toolchain).
 
-## Pick your channel
+## PICK YOUR CHANNEL
 
 ### Quick Install via Curl (macOS/Linux)
 
@@ -14,11 +14,25 @@ curl -fsSL https://raw.githubusercontent.com/BoxingOctopusCreative/linguo/main/i
 
 > The install script detects your platform, downloads the latest release tarball, verifies its checksum, and installs the binary to `~/.local/bin`. Override the destination with `LINGUO_INSTALL_DIR`, or pin a version with `LINGUO_VERSION=1.2.0` (or `sh install.sh 1.2.0`).
 
+- - -
+
 ### Cargo (Native Rust Package Manager)
+
+#### via Crates.io
 
 ```bash
 cargo install linguo
 ```
+
+#### Build from source
+
+```bash
+git clone https://github.com/BoxingOctopusCreative/linguo.git
+cd linguo
+cargo install --path .
+```
+
+- - -
 
 ### macOS
 
@@ -27,6 +41,20 @@ cargo install linguo
 ```bash
 brew tap boxingoctopuscreative/tap && brew install linguo
 ```
+
+#### Release tarball (Intel or Apple silicon)
+
+1. Open [GitHub Releases](https://github.com/BoxingOctopusCreative/linguo/releases) and download the tarball for your Mac:
+   - Apple silicon: `linguo-<version>-aarch64-apple-darwin.tar.gz`
+   - Intel: `linguo-<version>-x86_64-apple-darwin.tar.gz`
+2. Extract the archive and move the `linguo` binary onto your `PATH`:
+
+```bash
+tar xzf linguo-*-apple-darwin.tar.gz
+sudo install -m 755 linguo /usr/local/bin/linguo
+```
+
+- - -
 
 ### Linux
 
@@ -50,8 +78,6 @@ sudo add-apt-repository ppa:boxingoctopuscreative/ppa
 sudo apt install linguo
 ```
 
-> **PPA support is still rolling out**
-
 #### Fedora / RHEL (.rpm)
 
 1. Download the `.rpm` for your architecture from [GitHub Releases](https://github.com/BoxingOctopusCreative/linguo/releases):
@@ -69,6 +95,24 @@ On Fedora, you can also use:
 sudo dnf install ./linguo-*-unknown-linux-gnu.rpm
 ```
 
+#### Generic tarball (glibc or musl)
+
+If your distro is not covered by the `.deb` or `.rpm` packages, use the tarball:
+
+1. Download the matching archive from [GitHub Releases](https://github.com/BoxingOctopusCreative/linguo/releases):
+   - glibc x64/arm64: `linguo-<version>-<arch>-unknown-linux-gnu.tar.gz`
+   - musl x64/arm64: `linguo-<version>-<arch>-unknown-linux-musl.tar.gz`
+2. Extract and install the binary:
+
+```bash
+tar xzf linguo-*-linux-*.tar.gz
+sudo install -m 755 linguo /usr/local/bin/linguo
+```
+
+Each release asset has a matching `.sha256` file if you want to verify the download before installing.
+
+- - -
+
 ### Windows
 
 #### MSI installer (recommended)
@@ -81,9 +125,22 @@ sudo dnf install ./linguo-*-unknown-linux-gnu.rpm
 linguo --version
 ```
 
-#### Chocolatey (rolling out; live once the first submission clears moderation)
+#### Zip archive
 
-```bash
+1. Download `linguo-<version>-x86_64-pc-windows-msvc.zip` from [GitHub Releases](https://github.com/BoxingOctopusCreative/linguo/releases).
+2. Extract the archive to a permanent location, for example `C:\Tools\linguo`.
+3. Add that folder to your user `PATH`:
+   - Open **Settings → System → About → Advanced system settings → Environment Variables**
+   - Under **User variables**, edit **Path** and add the folder containing `linguo.exe`
+4. Open a new terminal and confirm the install:
+
+```powershell
+linguo --version
+```
+
+#### Chocolatey
+
+```powershell
 choco install linguo
 ```
 

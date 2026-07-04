@@ -30,6 +30,7 @@ When Linguo needs a runtime version, it checks in this order:
    - `.zigversion`
    - `build.zig.zon` `minimum_zig_version`
    - `.php-version`
+   - `.java-version`
 3. **Global config:** `~/.linguo/config.toml`
 
 Precedence: project `linguo.toml`, then the ecosystem pin file, then the global config.

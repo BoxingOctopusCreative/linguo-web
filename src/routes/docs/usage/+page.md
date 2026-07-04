@@ -70,6 +70,18 @@ linguo rust component add rust-analyzer rust-src
 linguo rust target add wasm32-unknown-unknown
 ```
 
+## JVM stack
+
+The JVM stack layers: JDKs (Eclipse Temurin) install and pin like any runtime and own `JAVA_HOME`. Kotlin, Groovy, and Scala are toolchains that run against the directory's JVM pin, or against a per-language binding when you need mixed JDKs in one place:
+
+```bash
+linguo jvm install 21             # latest LTS if no version is given
+linguo jvm use 21                 # every JVM language here uses it...
+linguo kotlin install && linguo kotlin use 2.4
+linguo groovy set-jvm 17          # ...except groovy, now bound to 17
+linguo kotlin run -- kotlinc app.kt -include-runtime -d app.jar
+```
+
 ## Zig projects
 
 Zig projects work the same way (`linguo zig init/sync/run/which`). `add` wraps `zig fetch --save`, which takes archive URLs or paths rather than registry names:
@@ -92,4 +104,6 @@ linguo zig run -- zig build
 | Go | [go.dev/dl](https://go.dev/dl) | go.mod via the go tool |
 | Zig | [ziglang.org](https://ziglang.org/download) (static, musl-friendly) | build.zig.zon via the zig tool |
 | PHP | [static-php-cli](https://dl.static-php.dev) builds (static); [windows.php.net](https://windows.php.net) on Windows | composer.json via bundled Composer |
+| JVM (Temurin JDKs) | [Adoptium API](https://adoptium.net) (incl. Alpine builds) | runtime-only; owns `JAVA_HOME` |
+| Kotlin / Groovy / Scala | JetBrains and Scala GitHub releases; Apache dist | runtime-only, layered on a JVM via `set-jvm` |
 | Terraform / OpenTofu | [releases.hashicorp.com](https://releases.hashicorp.com) / [get.opentofu.org](https://get.opentofu.org) | runtime-only (providers stay terraform's job) |

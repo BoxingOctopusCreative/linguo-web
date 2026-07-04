@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DistributionPlatforms from '$lib/components/DistributionPlatforms.svelte';
 	import { DEFAULT_DESCRIPTION } from '$lib/site';
 
 	const languages = [
@@ -16,6 +17,16 @@
 			name: 'PHP',
 			runtime: 'static-php-cli; windows.php.net on Windows',
 			project: 'composer.json via bundled Composer'
+		},
+		{
+			name: 'JVM (Temurin JDKs)',
+			runtime: 'Adoptium API (incl. Alpine builds)',
+			project: 'runtime-only; owns JAVA_HOME'
+		},
+		{
+			name: 'Kotlin / Groovy / Scala',
+			runtime: 'JetBrains and Scala GitHub releases; Apache dist',
+			project: 'runtime-only, layered on a JVM via set-jvm'
 		},
 		{
 			name: 'Terraform / OpenTofu',
@@ -51,8 +62,8 @@
 			<h1>One command shape for every language runtime</h1>
 			<p class="lead">
 				Linguo is a cross-platform runtime, package, and project manager for Python, Node.js, Ruby,
-				PHP, Rust, Go, Zig, and Terraform/OpenTofu. Pin versions, install toolchains, and run project
-				workflows with the same CLI everywhere.
+				PHP, Rust, Go, Zig, the JVM stack, and Terraform/OpenTofu. Pin versions, install toolchains,
+				and run project workflows with the same CLI everywhere.
 			</p>
 			<div class="actions">
 				<a href="/docs/install" class="button button-primary">Get started</a>
@@ -122,17 +133,7 @@
 	</div>
 </section>
 
-<section class="install-cta">
-	<div class="container">
-		<h2>Install in seconds</h2>
-		<pre><code>curl -fsSL https://raw.githubusercontent.com/BoxingOctopusCreative/linguo/main/install.sh | sh</code></pre>
-		<p>
-			Or use Homebrew, <code>cargo install linguo</code>, or the Ubuntu PPA. Prebuilt binaries for
-			macOS, Linux (glibc and musl), and Windows are on the
-			<a href="https://github.com/BoxingOctopusCreative/linguo/releases">releases page</a>.
-		</p>
-	</div>
-</section>
+<DistributionPlatforms />
 
 <style>
 	.hero {
@@ -281,16 +282,4 @@
 		white-space: nowrap;
 	}
 
-	.install-cta {
-		padding: 4rem 0 5rem;
-		border-top: 1px solid var(--border);
-	}
-
-	.install-cta h2 {
-		margin-top: 0;
-	}
-
-	.install-cta pre {
-		max-width: 36rem;
-	}
 </style>

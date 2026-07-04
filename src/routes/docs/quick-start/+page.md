@@ -9,6 +9,7 @@ Install the latest stable version of a language (defaults vary by language: late
 ```bash
 linguo python install
 linguo node install
+linguo jvm install 21
 linguo rust install
 ```
 
@@ -26,6 +27,7 @@ Pin a runtime for the current directory (writes `linguo.toml`):
 ```bash
 linguo python use 3.12
 linguo node use 24
+linguo jvm use 21
 ```
 
 Or set a global default:
