@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { docGroups, docHref } from '$lib/docs';
+	import { docGroups, docHref, docTocForSlug } from '$lib/docs';
 
 	function isActive(slug: string): boolean {
 		const path = $page.url.pathname.replace(/\/$/, '') || '/';
 		const href = docHref(slug).replace(/\/$/, '') || '/';
 		return path === href;
+	}
+
+	function isSectionActive(id: string): boolean {
+		return $page.url.hash === `#${id}`;
 	}
 </script>
 
@@ -19,6 +23,23 @@
 						<a href={docHref(item.slug)} class:active={isActive(item.slug)}>
 							{item.title}
 						</a>
+						{#if isActive(item.slug)}
+							{@const toc = docTocForSlug(item.slug)}
+							{#if toc}
+								<ul class="subnav">
+									{#each toc as entry (entry.id)}
+										<li class="level-{entry.level}">
+											<a
+												href="{docHref(item.slug)}#{entry.id}"
+												class:subactive={isSectionActive(entry.id)}
+											>
+												{entry.title}
+											</a>
+										</li>
+									{/each}
+								</ul>
+							{/if}
+						{/if}
 					</li>
 				{/each}
 			</ul>
@@ -31,6 +52,8 @@
 		position: sticky;
 		top: 5rem;
 		align-self: start;
+		max-height: calc(100vh - 6rem);
+		overflow-y: auto;
 	}
 
 	section + section {
@@ -59,7 +82,6 @@
 	a {
 		display: block;
 		padding: 0.375rem 0.625rem;
-		margin-inline: -0.625rem;
 		border-radius: 0.375rem;
 		color: var(--text-muted);
 		font-size: 0.9375rem;
@@ -73,5 +95,31 @@
 	a.active {
 		color: var(--button-text);
 		background: var(--link);
+	}
+
+	.subnav {
+		margin: 0.375rem 0 0.5rem;
+		padding-left: 0.5rem;
+		border-left: 1px solid var(--border);
+	}
+
+	.subnav a {
+		margin-inline: 0;
+		font-size: 0.8125rem;
+		line-height: 1.35;
+		padding: 0.25rem 0.625rem;
+	}
+
+	.subnav .level-3 a {
+		padding-left: 0.875rem;
+	}
+
+	.subnav .level-4 a {
+		padding-left: 1.25rem;
+	}
+
+	a.subactive {
+		color: var(--link);
+		background: var(--link-subtle);
 	}
 </style>

@@ -58,6 +58,12 @@
 		margin-top: 0;
 	}
 
+	.prose :global(h2),
+	.prose :global(h3),
+	.prose :global(h4) {
+		scroll-margin-top: 6rem;
+	}
+
 	.prose :global(a) {
 		text-decoration: underline;
 		text-underline-offset: 0.15em;
