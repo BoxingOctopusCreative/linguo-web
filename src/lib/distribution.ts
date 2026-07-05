@@ -29,5 +29,10 @@ export const distributionPlatforms: DistributionPlatform[] = [
 		name: 'Launchpad PPA',
 		href: 'https://launchpad.net/~boxingoctopuscreative/+archive/ubuntu/ppa',
 		logo: '/distribution/launchpad.svg'
+	},
+	{
+		name: 'Arch Linux AUR',
+		href: 'https://aur.archlinux.org/packages/linguo-bin',
+		logo: '/distribution/arch-linux.svg'
 	}
 ];

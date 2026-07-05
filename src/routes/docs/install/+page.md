@@ -95,6 +95,16 @@ On Fedora, you can also use:
 sudo dnf install ./linguo-*-unknown-linux-gnu.rpm
 ```
 
+#### Arch Linux (AUR)
+
+Install the prebuilt binary package from the [AUR](https://aur.archlinux.org/packages/linguo-bin):
+
+```bash
+yay -S linguo-bin
+```
+
+Any AUR helper works (`paru -S linguo-bin`, and so on).
+
 #### Generic tarball (glibc or musl)
 
 If your distro is not covered by the `.deb` or `.rpm` packages, use the tarball:
